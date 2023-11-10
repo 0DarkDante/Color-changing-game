@@ -1,8 +1,12 @@
 let field = document.getElementById('field');
+let counter = document.getElementById('counter');
 let rows = 3;
 let cols = 3;
 let colors = ['red', 'green', 'blue'];
 let currentIndex = 0;
+let count = 0;
+
+counter.textContent = 0;
 
 for (let i = 0; i < rows; i++) {
   let tr = document.createElement('tr');
@@ -39,12 +43,20 @@ function checkVictory() {
 
 function nextColors(td) {
   td.addEventListener('click', function () {
+    counter.textContent++;
     td.classList.remove(colors[currentIndex]);
     currentIndex = (currentIndex + 1) % colors.length;
     td.classList.add(colors[currentIndex]);
 
     if (checkVictory()) {
       alert('Перемога, вітаю!');
+      markVictory();
     }
   });
+}
+
+function markVictory() {
+  for (let td of tds) {
+    td.classList.add('victory');
+  }
 }
